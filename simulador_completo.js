@@ -90,4 +90,43 @@ function guardarCliente(){
   }
 
   clientes.push(cliente);
+
+  // Actualizar la tabla de clientes
+  pintarClientes();
+}
+
+function pintarClientes() {
+
+    // Obtener el cuerpo de la tabla
+    let tabla = document.getElementById("tablaClientes");
+
+    // Limpiar la tabla
+    tabla.innerHTML = "";
+
+    // Recorrer el arreglo de clientes
+    for (let i = 0; i < clientes.length; i++) {
+
+        // Obtener el cliente actual
+        let cliente = clientes[i];
+
+        // Crear una nueva fila
+        let fila = document.createElement("tr");
+
+        // Generar las celdas
+        fila.innerHTML = `
+            <td>${cliente.cedula}</td>
+            <td>${cliente.nombre}</td>
+            <td>${cliente.apellido}</td>
+            <td>${cliente.ingresos}</td>
+            <td>${cliente.egresos}</td>
+            <td>
+                <button>
+                    Actualizar
+                </button>
+            </td>
+        `;
+
+        // Agregar la fila a la tabla
+        tabla.appendChild(fila);
+    }
 }
