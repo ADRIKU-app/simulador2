@@ -10,3 +10,12 @@
 
   
 //Para recuperar o mostrar información usar los métodos de la clase utilitarios, puede agregar métodos adicionales en utilitarios
+
+function ocultarSecciones(){
+
+  //Ocultar la seccion parametros
+  document.getElementById("parametros").classList.remove("activa");
+
+  //Ocultar la seccion clientes
+  document.getElementById("clientes").classList.remove("activas");
+}
