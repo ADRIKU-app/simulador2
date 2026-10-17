@@ -17,10 +17,10 @@ function ocultarSecciones(){
   document.getElementById("parametros").classList.remove("activa");
 
   //Ocultar la seccion clientes
-  document.getElementById("clientes").classList.remove("activas");
+  document.getElementById("clientes").classList.remove("activa");
 }
 
-function mostrarSecciones(id){
+function mostrarSeccion(id){
 
   //Ocultar todas las secciones
   ocultarSecciones();
