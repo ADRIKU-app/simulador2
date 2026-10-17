@@ -81,45 +81,55 @@ function guardarCliente(){
     return;
   }
 
-  //Variable para almacenar el cliente
+  // Variable para almacenar el cliente
   let cliente;
 
-  //Comprobar si estamos creando o actualizando
-    if (clienteSeleccionado === null) {
+  // Comprobar si estamos creando o actualizando
+  if (clienteSeleccionado === null) {
 
-        // Comprobar si la cédula ya está registrada
-        cliente = buscarCliente(cedula);
+    // Buscar si la cédula ya está registrada
+    cliente = buscarCliente(cedula);
 
-        if (cliente === null) {
+    if (cliente === null) {
 
-            // Crear un cliente nuevo
-            cliente = {
-                cedula: cedula,
-                nombre: nombre,
-                apellido: apellido,
-                ingresos: ingresos,
-                egresos: egresos
-            };
-          //Agregar clientes nuevos
-          clientes.push(cliente);
+        // Crear un cliente nuevo
+        cliente = {
+            cedula: cedula,
+            nombre: nombre,
+            apellido: apellido,
+            ingresos: ingresos,
+            egresos: egresos
+        };
 
-        }else {
+        // Agregar únicamente clientes nuevos
+        clientes.push(cliente);
 
-        // Obtener el cliente seleccionado
-        cliente = clienteSeleccionado;
+    } else {
 
-        // Actualizar sus propiedades
+        // Actualizar el cliente encontrado
         cliente.nombre = nombre;
         cliente.apellido = apellido;
         cliente.ingresos = ingresos;
         cliente.egresos = egresos;
-        }
-      }
-    // Actualizar la tabla de clientes
-    pintarClientes();
+    }
 
-    // Limpiar el formulario
-    limpiar();
+    } else {
+
+    // Recuperar el cliente seleccionado desde la tabla
+    cliente = clienteSeleccionado;
+
+    // Actualizar sus propiedades
+    cliente.nombre = nombre;
+    cliente.apellido = apellido;
+    cliente.ingresos = ingresos;
+    cliente.egresos = egresos;
+}
+
+// Actualizar la tabla
+pintarClientes();
+
+// Limpiar el formulario
+limpiar();
 }
 
 // Actualizar la tabla de clientes
