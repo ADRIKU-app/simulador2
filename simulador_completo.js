@@ -54,9 +54,9 @@ function guardarTasa(){
 }
 
 function guardarCliente(){
-  let cedula = recuperaraTexto("txtCedula");
-  let nombre = recuperaraTexto("txtNombre");
-  let apellido = recuperaraTexto("txtApellido");
+  let cedula = recuperaraTexto("txtCedula").trim();
+  let nombre = recuperaraTexto("txtNombre").trim();
+  let apellido = recuperaraTexto("txtApellido").trim();
   let ingresos = recuperarFloat("ingresos");
   let egresos = recuperarFloat("egresos");
 
@@ -81,13 +81,26 @@ function guardarCliente(){
     return;
   }
 
-  let cliente = {
-    cedula: cedula,
-    nombre: nombre,
-    apellido: apellido,
-    ingresos: ingresos,
-    egresos: egresos
-  }
+  let cliente;
+
+    if (clienteSeleccionado == null) {
+
+        // Comprobar si la cédula ya está registrada
+        cliente = buscarCliente(cedula);
+
+        if (cliente === null) {
+
+            // Crear un cliente nuevo
+            cliente = {
+                cedula: cedula,
+                nombre: nombre,
+                apellido: apellido,
+                ingresos: ingresos,
+                egresos: egresos
+            };
+          }
+        }
+        
 
   clientes.push(cliente);
 
@@ -120,7 +133,7 @@ function pintarClientes() {
             <td>${cliente.ingresos}</td>
             <td>${cliente.egresos}</td>
             <td>
-                <button>
+                <button onclick="seleccionarCliente('${cliente.cedula}')">
                     Actualizar
                 </button>
             </td>
@@ -129,4 +142,62 @@ function pintarClientes() {
         // Agregar la fila a la tabla
         tabla.appendChild(fila);
     }
+}
+
+function buscarCliente(cedula){
+
+  //Recorrer el arreglo de clientes
+  for(let i=0; i<clientes[i].length; i++){
+
+    //Comparar la cedula del cliente actual
+    if(clientes[i].cedula == cedula){
+      return clientes[i];
+    }
+  }
+
+  //Si no encuentra al cliente retorna null
+  return null;
+}
+
+function seleccionarCliente(cedula) {
+
+    // Buscar el cliente mediante su cédula
+    let cliente = buscarCliente(cedula);
+
+    // Verificar que el cliente exista
+    if (cliente == null) {
+        alert("No se encontró el cliente.");
+        return;
+    }
+
+    // Guardar el cliente seleccionado
+    clienteSeleccionado = cliente;
+
+    // Mostrar los datos en los inputs
+    mostrarTextoEnCaja("txtCedula", cliente.cedula);
+    mostrarTextoEnCaja("txtNombre", cliente.nombre);
+    mostrarTextoEnCaja("txtApellido", cliente.apellido);
+    mostrarTextoEnCaja("ingresos", cliente.ingresos);
+    mostrarTextoEnCaja("egresos", cliente.egresos);
+
+    // Evitar modificar la cédula durante la actualización
+    document.getElementById("txtCedula").readOnly = true;
+}
+
+function limpiar() {
+
+    // Limpiar los campos de texto
+    mostrarTextoEnCaja("txtCedula", "");
+    mostrarTextoEnCaja("txtNombre", "");
+    mostrarTextoEnCaja("txtApellido", "");
+
+    // Limpiar los campos numéricos
+    mostrarTextoEnCaja("ingresos", "");
+    mostrarTextoEnCaja("egresos", "");
+
+    // Restablecer el cliente seleccionado
+    clienteSeleccionado = null;
+
+    // Permitir nuevamente la edición de la cédula
+    document.getElementById("txtCedula").readOnly = false;
 }
