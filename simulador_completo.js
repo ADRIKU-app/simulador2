@@ -19,3 +19,12 @@ function ocultarSecciones(){
   //Ocultar la seccion clientes
   document.getElementById("clientes").classList.remove("activas");
 }
+
+function mostrarSecciones(id){
+
+  //Ocultar todas las secciones
+  ocultarSecciones();
+
+  //Mostrar únicamente la seccion seleccionada
+  document.getElementById(id).classList.add("activa");
+}
