@@ -28,3 +28,27 @@ function mostrarSeccion(id){
   //Mostrar únicamente la seccion seleccionada
   document.getElementById(id).classList.add("activa");
 }
+
+function guardarTasa(){
+
+  // Obtener el valor ingresado y convertirlo a número decimal
+  let nuevaTasa = recuperarFloat("tasaInteres");
+
+  //Verificar que sea un numero entre 10 y 20
+  if(nuevaTasa>=10 && nuevaTasa<=20){
+    tasaInteres = nuevaTasa;
+
+    //Mostrar mensaje de confirmacion
+    mostrarTexto(
+      "mensajeTasa", 
+      `Tasa configurada correctamente: ${nuevaTasa}%`
+    );
+  }else{
+
+    //Mostrar mensaje de tasa incorrecta
+    mostrarTexto(
+        "mensajeTasa",
+        "La tasa debe estar entre 10% y 20%"
+    );
+  }
+}
