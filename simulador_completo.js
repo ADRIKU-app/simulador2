@@ -82,40 +82,37 @@ function guardarCliente(){
   }
 
   // Variable para almacenar el cliente
-  let cliente;
+let cliente;
 
-  // Comprobar si estamos creando o actualizando
-  if (clienteSeleccionado === null) {
+// Comprobar si estamos registrando o actualizando
+if (clienteSeleccionado === null) {
 
     // Buscar si la cédula ya está registrada
     cliente = buscarCliente(cedula);
 
-    if (cliente === null) {
+    // Si la cédula ya existe, impedir el registro
+    if (cliente !== null) {
 
-        // Crear un cliente nuevo
-        cliente = {
-            cedula: cedula,
-            nombre: nombre,
-            apellido: apellido,
-            ingresos: ingresos,
-            egresos: egresos
-        };
+        alert("Ya existe un cliente registrado con esta cédula.");
 
-        // Agregar únicamente clientes nuevos
-        clientes.push(cliente);
-
-    } else {
-
-        // Actualizar el cliente encontrado
-        cliente.nombre = nombre;
-        cliente.apellido = apellido;
-        cliente.ingresos = ingresos;
-        cliente.egresos = egresos;
+        return;
     }
 
-    } else {
+    // Crear un cliente nuevo
+    cliente = {
+        cedula: cedula,
+        nombre: nombre,
+        apellido: apellido,
+        ingresos: ingresos,
+        egresos: egresos
+    };
 
-    // Recuperar el cliente seleccionado desde la tabla
+    // Agregar el cliente nuevo al arreglo
+    clientes.push(cliente);
+
+} else {
+
+    // Obtener el cliente seleccionado para actualizar
     cliente = clienteSeleccionado;
 
     // Actualizar sus propiedades
