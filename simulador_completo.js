@@ -100,7 +100,6 @@ function guardarCliente(){
                 ingresos: ingresos,
                 egresos: egresos
             };
-          }
           //Agregar clientes nuevos
           clientes.push(cliente);
 
@@ -114,8 +113,8 @@ function guardarCliente(){
         cliente.apellido = apellido;
         cliente.ingresos = ingresos;
         cliente.egresos = egresos;
-    }
-
+        }
+      }
     // Actualizar la tabla de clientes
     pintarClientes();
 
