@@ -233,6 +233,9 @@ function buscarClienteCredito(){
   // Recuperar la cédula ingresada
   let cedula = recuperaraTexto("buscarCedulaCredito").trim();
 
+  // Restablecer el cliente utilizado en la simulación anterior
+  clienteCredito = null;
+
   //Obtener el contenedor de datos del cliente
   let datosClienteCredito = document.getElementById("datosClienteCredito");
 
@@ -269,6 +272,10 @@ function buscarClienteCredito(){
     );
     return; 
   }
+
+  // Guardar el cliente encontrado para calcular su crédito
+  clienteCredito = cliente;
+
   // Mostrar todos los datos del cliente encontrado
     datosClienteCredito.innerHTML = `
         <h3>Datos del Cliente</h3>
