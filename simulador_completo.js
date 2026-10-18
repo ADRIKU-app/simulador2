@@ -232,9 +232,16 @@ function buscarClienteCredito(){
   // Recuperar la cédula ingresada
   let cedula = recuperaraTexto("buscarCedulaCredito").trim();
 
-  // Limpiar información y resultados anteriores
-  mostrarTexto("datosClienteCredito", "");
+  //Obtener el contenedor de datos del cliente
+  let datosClienteCredito = document.getElementById("datosClienteCredito");
 
+  //Limpiar información anterior
+  datosClienteCredito.innerHTML = "";
+
+  // Limpiar información y resultados anteriores
+  //mostrarTexto("datosClienteCredito", "");
+
+  //Limpiar resultados de creditos anteriores
   document.getElementById("resultadoCredito").innerHTML = "";
   document.getElementById("resultadoCredito").className = "";
 
@@ -244,7 +251,7 @@ function buscarClienteCredito(){
   //Comprobar que la cedula no esté vacía
   if(cedula === ""){
     mostrarTexto(
-      "buscarCedulaCredito", 
+      "datosClienteCredito", 
       "Por favor ingrese una cedula para realizar la busqueda"
     );
     return;
@@ -261,9 +268,19 @@ function buscarClienteCredito(){
     );
     return; 
   }
-  // Mostrar una confirmación cuando existe
-    mostrarTexto(
-      "datosClienteCredito",
-      `Cliente encontrado: ${cliente.nombre} ${cliente.apellido}`
-    );
+  // Mostrar todos los datos del cliente encontrado
+    datosClienteCredito.innerHTML = `
+        <h3>Datos del Cliente</h3>
+
+        <p><strong>Cédula:</strong> ${cliente.cedula}</p>
+
+        <p><strong>Nombre:</strong> ${cliente.nombre}</p>
+
+        <p><strong>Apellido:</strong> ${cliente.apellido}</p>
+
+        <p><strong>Ingresos:</strong> ${cliente.ingresos}</p>
+
+        <p><strong>Egresos:</strong> ${cliente.egresos}</p>
+    `;
 }
+
