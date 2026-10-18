@@ -228,5 +228,42 @@ function limpiar() {
 }
 
 function buscarClienteCredito(){
-  
+
+  // Recuperar la cédula ingresada
+  let cedula = recuperaraTexto("buscarCedulaCredito").trim();
+
+  // Limpiar información y resultados anteriores
+  mostrarTexto("datosClienteCredito", "");
+
+  document.getElementById("resultadoCredito").innerHTML = "";
+  document.getElementById("resultadoCredito").className = "";
+
+  // Mantener deshabilitado el botón Solicitar crédito
+  document.getElementById("btnSolicitarCredito").disabled = true;
+
+  //Comprobar que la cedula no esté vacía
+  if(cedula === ""){
+    mostrarTexto(
+      "buscarCedulaCredito", 
+      "Por favor ingrese una cedula para realizar la busqueda"
+    );
+    return;
+  }
+
+  //Buscar cliente en el arreglo
+  let cliente = buscarCliente(cedula);
+
+  //Comprobar si el cliente existe
+  if(cliente === null){
+    mostrarTexto(
+      "datosClienteCredito", 
+      "No se encontró ningún cliente con la cédula ingresada"
+    );
+    return; 
+  }
+  // Mostrar una confirmación cuando existe
+    mostrarTexto(
+      "datosClienteCredito",
+      `Cliente encontrado: ${cliente.nombre} ${cliente.apellido}`
+    );
 }
