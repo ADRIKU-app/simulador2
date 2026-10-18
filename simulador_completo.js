@@ -386,9 +386,15 @@ function calcularCredito() {
 
       mensajeResultado = "APROBADO";
 
+      // Aplicar estilo de aprobación
+      resultadoCredito.className = "aprobado";
+
     } else {
 
       mensajeResultado = "RECHAZADO";
+
+      // Aplicar estilo de rechazo
+      resultadoCredito.className = "rechazado";
 
     } 
 
