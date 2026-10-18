@@ -7,6 +7,7 @@
   let montoCalculado = 0;
   let plazoCalculado = 0;
   let creditoAprobado = false;
+  let clienteCredito = null;
 
   
 //Para recuperar o mostrar información usar los métodos de la clase utilitarios, puede agregar métodos adicionales en utilitarios
@@ -284,3 +285,84 @@ function buscarClienteCredito(){
     `;
 }
 
+function calcularCredito() {
+
+    // Comprobar que exista un cliente seleccionado
+    if (clienteCredito === null) {
+        alert("Primero debe buscar un cliente registrado.");
+        return;
+    }
+
+    // Verificar que la cédula no haya cambiado
+    let cedulaActual = recuperaraTexto("buscarCedulaCredito").trim();
+
+    if (cedulaActual !== clienteCredito.cedula) {
+        alert("La cédula cambió. Busque nuevamente al cliente.");
+        return;
+    }
+
+    // Obtener monto y plazo
+    let monto = recuperarFloat("montoCredito");
+    let plazo = recuperarFloat("plazoCredito");
+
+    // Validar el monto
+    if (!Number.isFinite(monto) || monto <= 0) {
+        alert("Ingrese un monto válido.");
+        return;
+    }
+
+    // Validar el plazo
+    if (
+        !Number.isInteger(plazo) ||
+        plazo <= 0 ||
+        plazo > 5
+    ) {
+        alert("El plazo debe estar entre 1 y 5 años.");
+        return;
+    }
+
+    // Calcular dinero disponible
+    let disponible = calcularDisponible(
+        clienteCredito.ingresos,
+        clienteCredito.egresos
+    );
+
+    // Calcular capacidad de pago mensual
+    let capacidadPago = calcularCapacidadPago(disponible);
+
+    // Calcular intereses
+    let interes = calcularInteresSimple(
+        monto,
+        tasaInteres,
+        plazo
+    );
+
+    // Calcular total a pagar
+    let totalPagar = calcularTotalPagar(monto, interes);
+
+    // Calcular cuota mensual
+    let cuotaMensual = calcularCuotaMensual(
+        totalPagar,
+        plazo
+    );
+
+    // Evaluar aprobación del crédito
+    let aprobado = aprobarCredito(
+        capacidadPago,
+        cuotaMensual
+    );
+
+    // Guardar resultados en las variables globales
+    montoCalculado = monto;
+    plazoCalculado = plazo;
+    cuotaCalculada = cuotaMensual;
+    creditoAprobado = aprobado;
+
+    // Mostrar los resultados temporalmente en consola
+    console.log("Disponible:", disponible);
+    console.log("Capacidad de pago:", capacidadPago);
+    console.log("Interés:", interes);
+    console.log("Total a pagar:", totalPagar);
+    console.log("Cuota mensual:", cuotaMensual);
+    console.log("Crédito aprobado:", aprobado);
+}
