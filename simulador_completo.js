@@ -18,6 +18,9 @@ function ocultarSecciones(){
 
   //Ocultar la seccion clientes
   document.getElementById("clientes").classList.remove("activa");
+
+  //Ocultar la seccion creditos
+  document.getElementById("credito").classList.remove("activa");
 }
 
 function mostrarSeccion(id){
@@ -222,4 +225,8 @@ function limpiar() {
 
     // Permitir nuevamente la edición de la cédula
     document.getElementById("txtCedula").readOnly = false;
+}
+
+function buscarClienteCredito(){
+  
 }
