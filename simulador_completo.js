@@ -294,6 +294,17 @@ function buscarClienteCredito(){
 
 function calcularCredito() {
 
+    // Limpiar los resultados anteriores
+    document.getElementById("resultadoCredito").innerHTML = "";
+
+    document.getElementById("resultadoCredito").className = "";
+
+    // Restablecer el estado de aprobación
+    creditoAprobado = false;
+
+    // Mantener deshabilitado el botón Solicitar crédito
+    document.getElementById("btnSolicitarCredito").disabled = true;  
+
     // Comprobar que exista un cliente seleccionado
     if (clienteCredito === null) {
         alert("Primero debe buscar un cliente registrado.");
@@ -365,11 +376,53 @@ function calcularCredito() {
     cuotaCalculada = cuotaMensual;
     creditoAprobado = aprobado;
 
+    // Obtener el contenedor de resultados
+    let resultadoCredito = document.getElementById("resultadoCredito");
+
+    // Determinar el mensaje de aprobación
+    let mensajeResultado;
+
+    if (aprobado === true) {
+
+      mensajeResultado = "APROBADO";
+
+    } else {
+
+      mensajeResultado = "RECHAZADO";
+
+    } 
+
+    // Mostrar los resultados del crédito
+    // Mostrar los resultados en pantalla
+    resultadoCredito.innerHTML = `
+      <h3>Resultado de la simulación</h3>
+
+      <p>
+          <strong>Capacidad de pago:</strong>
+          $${capacidadPago.toFixed(2)}
+      </p>
+
+      <p>
+          <strong>Total a pagar:</strong>
+          $${totalPagar.toFixed(2)}
+      </p>
+
+      <p>
+          <strong>Cuota mensual:</strong>
+          $${cuotaMensual.toFixed(2)}
+      </p>
+
+      <p>
+          <strong>RESULTADO:</strong>
+          ${mensajeResultado}
+      </p>
+`;
+
     // Mostrar los resultados temporalmente en consola
-    console.log("Disponible:", disponible);
+    /*console.log("Disponible:", disponible);
     console.log("Capacidad de pago:", capacidadPago);
     console.log("Interés:", interes);
     console.log("Total a pagar:", totalPagar);
     console.log("Cuota mensual:", cuotaMensual);
-    console.log("Crédito aprobado:", aprobado);
+    console.log("Crédito aprobado:", aprobado);*/
 }
