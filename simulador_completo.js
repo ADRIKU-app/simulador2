@@ -22,6 +22,9 @@ function ocultarSecciones(){
 
   //Ocultar la seccion creditos
   document.getElementById("credito").classList.remove("activa");
+
+  //Ocultar la seccion creador
+  document.getElementById("creador").classList.remove("activa");
 }
 
 function mostrarSeccion(id){
@@ -63,12 +66,14 @@ function guardarCliente(){
   let apellido = recuperaraTexto("txtApellido").trim();
   let ingresos = recuperarFloat("ingresos");
   let egresos = recuperarFloat("egresos");
+  let email = recuperaraTexto("email").trim();
 
   // Validar campos de texto obligatorios
   if (
     cedula.trim() === "" ||
     nombre.trim() === "" ||
-    apellido.trim() === ""
+    apellido.trim() === "" ||
+    email.trim() === ""
   ) {
     alert("Por favor, complete los datos del cliente.");
     return;
@@ -108,7 +113,8 @@ if (clienteSeleccionado === null) {
         nombre: nombre,
         apellido: apellido,
         ingresos: ingresos,
-        egresos: egresos
+        egresos: egresos,
+        email: email
     };
 
     // Agregar el cliente nuevo al arreglo
@@ -124,6 +130,7 @@ if (clienteSeleccionado === null) {
     cliente.apellido = apellido;
     cliente.ingresos = ingresos;
     cliente.egresos = egresos;
+    cliente.email = email;
 }
 
 // Actualizar la tabla
@@ -158,6 +165,7 @@ function pintarClientes() {
             <td>${cliente.apellido}</td>
             <td>${cliente.ingresos}</td>
             <td>${cliente.egresos}</td>
+            <td>${cliente.email}</td>
             <td>
                 <button onclick="seleccionarCliente('${cliente.cedula}')">
                     Actualizar
@@ -205,6 +213,7 @@ function seleccionarCliente(cedula) {
     mostrarTextoEnCaja("txtApellido", cliente.apellido);
     mostrarTextoEnCaja("ingresos", cliente.ingresos);
     mostrarTextoEnCaja("egresos", cliente.egresos);
+    mostrarTextoEnCaja("email", cliente.email);
 
     // Evitar modificar la cédula durante la actualización
     document.getElementById("txtCedula").readOnly = true;
@@ -216,6 +225,7 @@ function limpiar() {
     mostrarTextoEnCaja("txtCedula", "");
     mostrarTextoEnCaja("txtNombre", "");
     mostrarTextoEnCaja("txtApellido", "");
+    mostrarTextoEnCaja("email", "");
 
     // Limpiar los campos numéricos
     mostrarTextoEnCaja("ingresos", "");
@@ -289,6 +299,9 @@ function buscarClienteCredito(){
         <p><strong>Ingresos:</strong> ${cliente.ingresos}</p>
 
         <p><strong>Egresos:</strong> ${cliente.egresos}</p>
+
+        <p><strong>Email:</strong> ${cliente.email}</p>
+
     `;
 }
 

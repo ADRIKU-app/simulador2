@@ -15,6 +15,7 @@
   <button onclick="mostrarSeccion('parametros')">Parámetros</button>
   <button onclick="mostrarSeccion('clientes')">Clientes</button>
   <button onclick="mostrarSeccion('credito')">Créditos</button>
+  <button onclick="mostrarSeccion('creador')">Contacto</button>
 </nav>
 
 <section id="parametros">
@@ -38,6 +39,7 @@
   <input type="text" id="txtApellido" placeholder="Ingrese el apellido">
   <input type="number" id="ingresos" placeholder="Ingrese los ingresos">
   <input type="number" id="egresos" placeholder="Ingrese los egresos">
+  <input type="text" id="email" placeholder="Ingrese el correo electrónico">
 
   <br>
 
@@ -52,6 +54,7 @@
         <th>Apellido</th>
         <th>Ingresos</th>
         <th>Egresos</th>
+        <th>Correo</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -80,6 +83,10 @@
   <button id="btnSolicitarCredito" onclick="solicitarCredito()" disabled>
     Solicitar crédito
   </button>
+</section>
+
+<section id="creador">
+  <h2>Creado por: ADRIAN NAVARRO</h2>
 </section>
 
 
