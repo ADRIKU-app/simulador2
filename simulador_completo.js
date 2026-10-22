@@ -525,3 +525,45 @@ function buscarCreditos(cedula){
   // Devolver los créditos encontrados
   return creditosEncontrados;
 }
+
+function pintarCreditos(creditos){
+
+  //Obtener el cuerpo de la tabla
+  let tabla2 = document.getElementById("tablaCreditos");
+
+  //Limpiar tabla
+  tabla2.innerHTML = "";
+
+  //
+  for(let i=0; i<creditos.length; i++){
+    // Obtener el cliente actual
+        let credito = creditos[i];
+
+        // Crear una nueva fila
+        let fila = document.createElement("tr");
+
+        // Preparar los valores de sus siete columnas
+        let datos = [
+            credito.cedula,
+            credito.nombre,
+            credito.apellido,
+            credito.monto.toFixed(2),
+            credito.tasa + "%",
+            credito.plazo + " años",
+            credito.cuota.toFixed(2)
+        ];
+
+        // Crear una celda por cada valor
+        for (let j = 0; j < datos.length; j++) {
+
+            let celda = document.createElement("td");
+
+            celda.textContent = datos[j];
+
+            fila.appendChild(celda);
+        }
+
+        // Agregar la fila a la tabla
+        tabla2.appendChild(fila);
+  }
+}
