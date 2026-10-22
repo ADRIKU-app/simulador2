@@ -402,12 +402,18 @@ function calcularCredito() {
       // Aplicar estilo de aprobación
       resultadoCredito.className = "aprobado";
 
+      //Permitir asignar crédito
+      document.getElementById("btnSolicitarCredito").disabled = false;
+
     } else {
 
       mensajeResultado = "RECHAZADO";
 
       // Aplicar estilo de rechazo
       resultadoCredito.className = "rechazado";
+
+      //Impedir asignar un crédito rechazado
+      document.getElementById("btnSolicitarCredito").disabled = true;
 
     } 
 
@@ -444,4 +450,52 @@ function calcularCredito() {
     console.log("Total a pagar:", totalPagar);
     console.log("Cuota mensual:", cuotaMensual);
     console.log("Crédito aprobado:", aprobado);*/
+}
+
+function asignarCredito(){
+
+  //Verificar que exista un cliente seleccionado
+  if(clienteCredito === null){
+    alert("Primero debe buscar un cliente.");
+    return;
+  }
+
+  //Verificar que el crédito esté aprobado
+  if(creditoAprobado !== true){
+    alert("No se puede asignar un crédito rechazado");
+    return;
+  }
+
+  //Comprobar que los datos no hayan cambiado
+  let cedulaActual = recuperaraTexto("btnSolicitarCredito").trim();
+  let montoActual = recuperaraTexto("montoCredito");
+  let plazoActual = recuperaraTexto("plazoCredito");
+
+  if(cedulaActual !== clienteCredito.cedula || montoActual !== montoCalculado || plazoActual !== plazoCalculado){
+    alert("Los datos cambiaron, debe calcular el crédito nuevamente");
+    return;
+  }
+
+  //Crear el objeto del crédito aprobado
+  let credito = {
+    cedula: clienteCredito.cedula,
+    nombre: clienteCredito.nombre,
+    apellido: clienteCredito.apellido,
+    monto: montoCalculado,
+    tasa: tasaInteres,
+    plazo: plazoCalculado,
+    cuota: cuotaCalculada
+  };
+
+  //Guardar el crédito en el arreglo
+  creditos.push(credito);
+
+  // Evitar asignar dos veces la misma simulación
+  document.getElementById("btnSolicitarCredito").disabled = true;
+
+  // Invalidar la aprobación hasta realizar otro cálculo
+  creditoAprobado = false;
+
+  // Confirmar al usuario
+  alert("Crédito asignado correctamente.");
 }
