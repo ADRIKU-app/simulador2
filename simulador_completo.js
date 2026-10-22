@@ -24,6 +24,9 @@ function ocultarSecciones(){
   //Ocultar la seccion creditos
   document.getElementById("credito").classList.remove("activa");
 
+  //Ocutlar sección Lista Créditos
+  document.getElementById("listaCreditos").classList.remove("activa");
+
   //Ocultar la seccion creador
   document.getElementById("creador").classList.remove("activa");
 }
