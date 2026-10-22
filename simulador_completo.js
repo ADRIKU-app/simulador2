@@ -389,6 +389,7 @@ function calcularCredito() {
     plazoCalculado = plazo;
     cuotaCalculada = cuotaMensual;
     creditoAprobado = aprobado;
+    tasaCalculada = tasaInteres;
 
     // Obtener el contenedor de resultados
     let resultadoCredito = document.getElementById("resultadoCredito");
