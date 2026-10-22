@@ -567,3 +567,22 @@ function pintarCreditos(creditos){
         tabla2.appendChild(fila);
   }
 }
+
+function buscarCreditosCliente(){
+  let cedula = recuperaraTexto("buscarCedulaListado").trim();
+
+  //Validar que el campo no esté vacío
+  if(cedula === ""){
+    alert("Ingrese un número de cédula");
+    return;
+  }
+
+  let creditosEncontrados = buscarCreditos(cedula);
+
+  pintarCreditos(creditosEncontrados);
+
+  // Informar cuando no existan créditos para el cliente
+  if (creditosEncontrados.length === 0) {
+  alert("No se encontraron créditos para la cédula ingresada.");
+}
+}
