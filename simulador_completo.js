@@ -8,6 +8,7 @@
   let plazoCalculado = 0;
   let creditoAprobado = false;
   let clienteCredito = null;
+  let tasaCalculada = 0;
 
   
 //Para recuperar o mostrar información usar los métodos de la clase utilitarios, puede agregar métodos adicionales en utilitarios
@@ -452,50 +453,54 @@ function calcularCredito() {
     console.log("Crédito aprobado:", aprobado);*/
 }
 
-function asignarCredito(){
+function asignarCredito() {
 
-  //Verificar que exista un cliente seleccionado
-  if(clienteCredito === null){
-    alert("Primero debe buscar un cliente.");
-    return;
-  }
+    // Verificar que exista un cliente seleccionado
+    if (clienteCredito === null) {
+        alert("Primero debe buscar un cliente.");
+        return;
+    }
 
-  //Verificar que el crédito esté aprobado
-  if(creditoAprobado !== true){
-    alert("No se puede asignar un crédito rechazado");
-    return;
-  }
+    // Verificar que el crédito esté aprobado
+    if (creditoAprobado !== true) {
+        alert("No se puede asignar un crédito rechazado.");
+        return;
+    }
 
-  //Comprobar que los datos no hayan cambiado
-  let cedulaActual = recuperaraTexto("btnSolicitarCredito").trim();
-  let montoActual = recuperaraTexto("montoCredito");
-  let plazoActual = recuperaraTexto("plazoCredito");
+    // Recuperar los datos actuales
+    let cedulaActual = recuperaraTexto("buscarCedulaCredito").trim();
+    let montoActual = recuperarFloat("montoCredito");
+    let plazoActual = recuperarFloat("plazoCredito");
 
-  if(cedulaActual !== clienteCredito.cedula || montoActual !== montoCalculado || plazoActual !== plazoCalculado){
-    alert("Los datos cambiaron, debe calcular el crédito nuevamente");
-    return;
-  }
+    // Comprobar que los datos no hayan cambiado
+    if (
+        cedulaActual !== clienteCredito.cedula ||
+        montoActual !== montoCalculado ||
+        plazoActual !== plazoCalculado ||
+        tasaInteres !== tasaCalculada
+    ) {
+        alert("Los datos cambiaron. Debe calcular el crédito nuevamente.");
+        return;
+    }
 
-  //Crear el objeto del crédito aprobado
-  let credito = {
-    cedula: clienteCredito.cedula,
-    nombre: clienteCredito.nombre,
-    apellido: clienteCredito.apellido,
-    monto: montoCalculado,
-    tasa: tasaInteres,
-    plazo: plazoCalculado,
-    cuota: cuotaCalculada
-  };
+    // Crear el objeto del crédito
+    let credito = {
+        cedula: clienteCredito.cedula,
+        nombre: clienteCredito.nombre,
+        apellido: clienteCredito.apellido,
+        monto: montoCalculado,
+        tasa: tasaCalculada,
+        plazo: plazoCalculado,
+        cuota: cuotaCalculada
+    };
 
-  //Guardar el crédito en el arreglo
-  creditos.push(credito);
+    // Registrar el crédito
+    creditos.push(credito);
 
-  // Evitar asignar dos veces la misma simulación
-  document.getElementById("btnSolicitarCredito").disabled = true;
+    // Evitar una segunda asignación del mismo cálculo
+    document.getElementById("btnSolicitarCredito").disabled = true;
+    creditoAprobado = false;
 
-  // Invalidar la aprobación hasta realizar otro cálculo
-  creditoAprobado = false;
-
-  // Confirmar al usuario
-  alert("Crédito asignado correctamente.");
+    // Confirmar al usuario
+    alert("Crédito asignado correctamente.");
 }
