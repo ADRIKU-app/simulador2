@@ -508,3 +508,20 @@ function asignarCredito() {
     // Confirmar al usuario
     alert("Crédito asignado correctamente.");
 }
+
+function buscarCreditos(cedula){
+  // Arreglo para almacenar los créditos encontrados
+  let creditosEncontrados = [];
+  
+  // Recorrer todos los créditos registrados
+  for(let i=0; i<creditos.length; i++){
+  
+    // Comparar la cédula de cada crédito
+    if(creditos[i].cedula === cedula){
+      creditosEncontrados.push(creditos[i]);
+    }
+  }
+
+  // Devolver los créditos encontrados
+  return creditosEncontrados;
+}
